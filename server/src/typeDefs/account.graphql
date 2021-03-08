@@ -1,0 +1,12 @@
+type Account {
+    id: ID
+    email: String
+    token: String
+    name: String
+}
+
+
+type Query {
+        accounts(offset: Int, limit: Int): [Account]
+        account(id: ID) : Account
+}
