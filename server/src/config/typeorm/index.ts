@@ -11,15 +11,15 @@ export class TypeOrmSerivce implements TypeOrmOptionsFactory {
         return {
             ...TYPEORM,
             type: 'postgres',
-            entities: getMetadataArgsStorage().tables.map( tbl => tbl.target ),
-            // entities: ["src/database/entities/*.entity.ts"],
+            // entities: getMetadataArgsStorage().tables.map( tbl => tbl.target ),
+            entities: ["src/database/entities/*.entity.ts"],
 
             // entities: [join( __dirname, '**', '*.entity.{ts.js}' )],
             synchronize: true,
-            // migrations: ['src/database/migrations/*.ts'],
-            // cli: {
-            //     migrationsDir: "src/database/migrations"
-            // },
+            migrations: ['src/database/migrations/*.ts'],
+            cli: {
+                migrationsDir: "src/database/migrations"
+            },
             autoLoadEntities: true,
             useNewUrlParser: true,
             useUnifiedTopology: true,

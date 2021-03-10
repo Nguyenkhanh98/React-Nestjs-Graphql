@@ -17,7 +17,8 @@ import { join } from 'path';
     useClass: GraphQLService
   } ),
   ServeStaticModule.forRoot( {
-    rootPath: join( __dirname, '..', 'client' )
+    rootPath: join( __dirname, '..', 'client', 'dist' ),
+    exclude: ['/api*', '/graphql*'],
   } )
   ],
   controllers: [AppController],

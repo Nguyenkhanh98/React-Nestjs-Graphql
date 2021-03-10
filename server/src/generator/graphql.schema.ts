@@ -35,6 +35,17 @@ export abstract class IQuery {
     abstract user(id?: string): User | Promise<User>;
 }
 
+export class LoginResponse {
+    accessToken?: string;
+    expiresIn?: number;
+}
+
+export abstract class IMutation {
+    abstract oauthAAD(accessToken?: string): LoginResponse | Promise<LoginResponse>;
+
+    abstract createUser(input?: CreateUserInput): User | Promise<User>;
+}
+
 export class User {
     id?: string;
     uuid?: string;
@@ -50,10 +61,6 @@ export class User {
     isActive?: boolean;
     createdAt?: number;
     updatedAt?: number;
-}
-
-export abstract class IMutation {
-    abstract createUser(input?: CreateUserInput): User | Promise<User>;
 }
 
 export type JSON = any;

@@ -4,6 +4,7 @@ import { Logger } from '@nestjs/common';
 import { AppModule } from './app.module';
 import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify';
 import { getConnection } from 'typeorm'
+import * as passport from 'passport';
 import { MyLogger } from './config/logger';
 import helmet from 'helmet';
 import compression from 'compression';
@@ -11,6 +12,8 @@ import { express as voyagerMiddleware } from 'graphql-voyager/middleware'
 import rateLimit from 'express-rate-limit';
 import { LoggerMiddleware } from './common';
 import { VOYAGER, NODE_ENV, END_POINT, RATE_LIMIT_MAX } from './config/environments';
+import 
+
 config();
 
 async function bootstrap() {
@@ -32,6 +35,10 @@ async function bootstrap() {
 
   app.use( LoggerMiddleware );
 
+  app.use( passport.initialize() );
+  app.use( passport.session() );
+
+  require
   app.use( rateLimit( {
     windowMs: 1000 * 60 * 60, // an hour
     max: RATE_LIMIT_MAX, // limit each IP to 100 requests per windowMs

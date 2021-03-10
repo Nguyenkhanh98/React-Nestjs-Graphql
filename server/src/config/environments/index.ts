@@ -48,11 +48,16 @@ const TYPEORM = environment[NODE_ENV]
 // jwt
 
 const ACCESS_TOKEN_SECRET: string = process.env.ACCESS_TOKEN_SECRET || 'access-token-key'
-
+const ISSUER: string = process.env.ISSUER || 'issuer';
+const AUDIENCE: string = process.env.AUDIENCE || 'audience';
 
 // bcrypt
 const BCRYPT_SALT: number = +process.env.BCRYPT_SALT || 10
 
+// aad
+
+const AAD_IDENTITY = process.env.AAD_IDENTITY || 'https://login.microsoftonline.com/common/v2.0/.well-known/openid-configuration';
+const CLIENT_ID = process.env.CLIENT_ID || '5f471bd1-ac06-4f49-88d7-d852c2e14fb5';
 
 
 export {
@@ -73,5 +78,10 @@ export {
     ACCESS_TOKEN_SECRET,
     BCRYPT_SALT,
     FE_URL,
-    VOYAGER
+    VOYAGER,
+    AAD_IDENTITY,
+    CLIENT_ID,
+    ISSUER,
+    AUDIENCE
+
 }

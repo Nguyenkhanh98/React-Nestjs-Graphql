@@ -92,8 +92,10 @@ export class User {
     @OneToMany( () => UserToRole, userToRole => userToRole.user )
     userToRoles!: UserToRole[];
 
-    @OneToMany( () => Account, account => account.user )
-    accounts: Account[];
+    @Expose()
+    @OneToOne( () => Account, account => account.user )
+    @JoinColumn( { name: 'account_id' } )
+    account: Account;
 
     constructor( user: Partial<User> ) {
         if ( user ) {
@@ -103,7 +105,7 @@ export class User {
                     excludeExtraneousValues: true,
                 } )
             );
-            this.isVerified = this.isVerified !== null ? this.isVerified : this.accounts.length > 0 ? true : false;
+            this.isVerified = this.isVerified !== null ? this.isVerified : this.account ? true : false;
             this.isOnline = this.isOnline !== null ? this.isOnline : false;
             this.isLocked = this.isLocked !== null ? this.isLocked : false;
             this.reason = this.reason || '';
@@ -112,4 +114,4 @@ export class User {
             this.updatedAt = new Date().getTime()
         }
     }
-} 
+}

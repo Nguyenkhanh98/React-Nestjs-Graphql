@@ -30,8 +30,7 @@ export class UserResolver {
         const users = await getRepository( User ).find( {
             relations: ['accounts']
         } );
-        console.log( users );
-
         return users;
     }
+
 }

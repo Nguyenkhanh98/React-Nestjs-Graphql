@@ -1,0 +1,8 @@
+type LoginResponse {
+    accessToken: String
+    expiresIn: Int
+}
+
+type Mutation {
+    oauthAAD(accessToken: String): LoginResponse
+}

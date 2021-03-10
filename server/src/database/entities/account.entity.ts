@@ -1,5 +1,5 @@
 import { Expose, plainToClass } from 'class-transformer';
-import { Entity, Column, PrimaryGeneratedColumn, Timestamp, ManyToOne, JoinColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToOne, Timestamp, ManyToOne, JoinColumn } from 'typeorm';
 import { User } from './user.entity';
 
 enum Provider {
@@ -38,7 +38,6 @@ export class Account {
     provider: Provider
 
     @Expose()
-    @ManyToOne( () => User, user => user.accounts, { nullable: false } )
-    @JoinColumn( { name: 'user_id' } )
-    user!: User
+    @OneToOne( () => User, user => user.account, { nullable: false } )
+    user: User
 }
