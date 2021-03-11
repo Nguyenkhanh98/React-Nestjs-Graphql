@@ -1,7 +1,7 @@
 const dev = {
   api: {
     HOST: '',
-    VERSION: '/graphql/',
+    VERSION: '/graphql',
     GRAPH_QL: 'http://localhost:8080/graphql'
   },
   auth: {
@@ -14,12 +14,13 @@ const dev = {
       clientId: '5f471bd1-ac06-4f49-88d7-d852c2e14fb5',
       authority: 'https://login.microsoftonline.com/402d0e12-de7f-4ed6-8704-7d02bc11fac0',
       redirectUri: 'http://localhost:3000/login',
+      postLogoutRedirectUri: 'http://localhost:3000/login'
     },
     cache: {
       cacheLocation: 'sessionStorage',
       storeAuthStateInCookie: true,
     },
-    scopes: ['openid', 'profile', 'email'],
+    scopes: ['api://5f471bd1-ac06-4f49-88d7-d852c2e14fb5/access_as_user'],
   }
 };
 
@@ -38,6 +39,7 @@ const prod = {
       clientId: '5f471bd1-ac06-4f49-88d7-d852c2e14fb5',
       authority: 'https://login.microsoftonline.com/402d0e12-de7f-4ed6-8704-7d02bc11fac0',
       redirectUri: 'http://localhost:3000/auth',
+      postLogoutRedirectUri: 'http://localhost:3000/login'
     },
     cache: {
       cacheLocation: 'sessionStorage',

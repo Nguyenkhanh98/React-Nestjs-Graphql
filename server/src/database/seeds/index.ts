@@ -15,24 +15,24 @@ async function main() {
         console.log( 'connected' );
 
 
-        for ( const key in accounts ) {
-            const account = accounts[key];
-            if ( account.hasOwnProperty( 'id' ) ) {
+        // for ( const key in accounts ) {
+        //     const account = accounts[key];
+        //     if ( account.hasOwnProperty( 'id' ) ) {
 
-                client.query(
-                    `INSERT into accounts (id, email, token, name, provider, user_id) VALUES ($1, $2, $3, $4, $5, $6)`,
-                    [account.id, account.email, account.token || '', account.name, account.provider, account.user_id],
-                    ( err, result ) => {
-                        if ( err ) {
-                            console.log( err );
-                        } else {
-                            console.log( `row inserted with data`, account )
-                        }
-                    }
-                )
-            }
+        //         client.query(
+        //             `INSERT into accounts (id, email, token, name, provider) VALUES ($1, $2, $3, $4, $5)`,
+        //             [account.id, account.email, account.token || '', account.name, account.provider],
+        //             ( err, result ) => {
+        //                 if ( err ) {
+        //                     console.log( err );
+        //                 } else {
+        //                     console.log( `row inserted with data`, account )
+        //                 }
+        //             }
+        //         )
+        //     }
 
-        }
+        // }
 
         // for ( const key in roles ) {
         //     const role = roles[key];
@@ -103,6 +103,35 @@ async function main() {
         //     }
         // } )
 
+
+        // INsert value acccount_id in user table
+        // await new Promise( async ( resolve, reject ) => {
+        //     let i = 0;
+        //     for ( const key in users ) {
+        //         const user = users[key];
+        //         if ( user.hasOwnProperty( 'id' ) ) {
+        //             i++;
+        //             console.log( i );
+        //             await client.query(
+        //                 `UPDATE users SET account_id = ${i} WHERE id = ${i}`,
+
+        //                 ( err, result ) => {
+        //                     if ( err ) {
+        //                         console.log( err );
+        //                     } else {
+
+        //                         console.log( `row update with data`, user )
+        //                     }
+        //                 }
+        //             )
+        //         }
+        //         if ( i === users.length ) {
+        //             console.log( i );
+        //             resolve();
+        //         }
+        //     }
+
+        // } )
 
     } ).catch( ( err ) => {
         console.log( err );

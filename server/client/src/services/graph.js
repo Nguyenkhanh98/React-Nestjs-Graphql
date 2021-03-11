@@ -4,12 +4,13 @@ import { UserAgentApplication } from 'msal';
 import configs from '../configs';
 import { UserService } from './';
 
+const { microsoft } = configs;
+const userAgentApplication = new UserAgentApplication({
+    auth: microsoft.auth,
+    cache: microsoft.cache,
+});
+
 export const AADlogin = () => {
-    const { microsoft } = configs;
-    const userAgentApplication = new UserAgentApplication({
-        auth: microsoft.auth,
-        cache: microsoft.cache,
-    });
 
     const accessTokenRequest = { scopes: microsoft.scopes };
 
@@ -20,9 +21,10 @@ export const AADlogin = () => {
                 .then(async (response) => {
                     const { accessToken } = response;
                     try {
-                        const data = await UserService.login();
+                        const data = await UserService.login(accessToken);
+                        resolve(data);
                     } catch (error) {
-                        console.log(data);
+                        reject(error);
                     }
 
 
@@ -32,12 +34,14 @@ export const AADlogin = () => {
                         return userAgentApplication
                             .acquireTokenPopup(accessTokenRequest)
                             .then(async (response) => {
+                                const { accessToken } = response;
+
                                 try {
-                                    const data = await UserService.login();
+                                    const data = await UserService.login(accessToken);
+                                    resolve(data);
                                 } catch (error) {
-                                    console.log(data);
+                                    reject(error);
                                 }
-                                resolve(response);
                             });
                     }
                 });
@@ -50,12 +54,11 @@ export const AADlogin = () => {
                         .then(async (response) => {
                             const { accessToken } = response;
                             try {
-                                const data = await UserService.login();
+                                const data = await UserService.login(accessToken);
+                                resolve(data);
                             } catch (error) {
-                                console.log(data);
+                                reject(error);
                             }
-                            resolve(response);
-
                         })
                         .catch((err) => reject(err));
                 })
@@ -63,3 +66,7 @@ export const AADlogin = () => {
         }
     });
 };
+
+export const AADLogout = () => {
+    userAgentApplication.logout();
+}

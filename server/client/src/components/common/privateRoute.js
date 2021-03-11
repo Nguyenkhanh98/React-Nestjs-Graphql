@@ -3,7 +3,10 @@ import { Route, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { isAuth } from '../../helpers/auth';
 
+console.log(isAuth());
+
 const PrivateRoute = ({ component: Component, ...rest }) => (
+
   <Route
     {...rest}
     render={(props) => (isAuth() ? (

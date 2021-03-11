@@ -33,4 +33,12 @@ export class UserResolver {
         return users;
     }
 
+    @Query( () => [User] )
+    async me(): Promise<User[]> {
+        const users = await getRepository( User ).find( {
+            relations: ['accounts']
+        } );
+        return users;
+    }
+
 }

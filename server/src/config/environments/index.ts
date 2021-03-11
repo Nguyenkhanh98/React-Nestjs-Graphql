@@ -48,8 +48,8 @@ const TYPEORM = environment[NODE_ENV]
 // jwt
 
 const ACCESS_TOKEN_SECRET: string = process.env.ACCESS_TOKEN_SECRET || 'access-token-key'
-const ISSUER: string = process.env.ISSUER || 'issuer';
-const AUDIENCE: string = process.env.AUDIENCE || 'audience';
+const ISSUER: string = process.env.ISSUER || 'https://login.microsoftonline.com/402d0e12-de7f-4ed6-8704-7d02bc11fac0/v2.0';
+const AUDIENCE: string = process.env.AUDIENCE || '5f471bd1-ac06-4f49-88d7-d852c2e14fb5';
 
 // bcrypt
 const BCRYPT_SALT: number = +process.env.BCRYPT_SALT || 10

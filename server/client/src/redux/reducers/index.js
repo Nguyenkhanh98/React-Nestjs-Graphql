@@ -5,5 +5,5 @@ import userReducer from './user';
 export default combineReducers({
   toastr: toastrReducer,
   form: formReducer,
-  users: userReducer
+  user: userReducer
 });

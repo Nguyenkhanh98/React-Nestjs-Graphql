@@ -1,4 +1,4 @@
-import { React, useState } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Collapse } from '@material-ui/core';
 
@@ -45,12 +45,12 @@ const Ibox = (props) => {
                     {label}
                     <div className="ibox-tools">
                       {isCollapse && (
-                      <a className="collapse-link" onClick={onClickCollapse}>
-                        <i className={`fa ${collapse ? 'fa-chevron-down' : ' fa-chevron-up'}`} />
-                      </a>
+                        <a className="collapse-link" onClick={onClickCollapse}>
+                          <i className={`fa ${collapse ? 'fa-chevron-down' : ' fa-chevron-up'}`} />
+                        </a>
                       )}
 
-                      { isClose && (
+                      {isClose && (
                         <a className="close-link" onClick={onClose}>
                           <i className="fa fa-times" />
                         </a>

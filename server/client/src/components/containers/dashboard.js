@@ -96,7 +96,7 @@ const Dashboard = () => {
               <DataGrid
                 dataSource={employees}
                 keyExpr="ID"
-                showBorders="true"
+                showBorders={true}
                 elementAttr={{
                   id: 'data-grid--height',
                 }}

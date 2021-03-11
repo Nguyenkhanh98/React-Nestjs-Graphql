@@ -1,21 +1,20 @@
 import gqlClient from '../configs/graphql';
 import { gql } from '@apollo/client';
 
-export const login = async () => {
-    try {
-        const data = await gqlClient.query({
-            query: gql`
-                {
-                    users{
-                        id
+export const login = (token) => {
+    return gqlClient.mutate({
+        mutation: gql`
+                    mutation oauth($accessToken: String){
+                        oauthAAD (accessToken: $accessToken) {
+                        accessToken,
+                        expiresIn
+                        }
+                
                     }
-                }
-            `
-        });
-        console.log(data);
-    } catch (error) {
-        console.log(error);
-    }
-
+            `,
+        variables: {
+            accessToken: token
+        }
+    });
 }
 

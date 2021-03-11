@@ -9,6 +9,7 @@ import {
     authenticateAAD, tradeToken
 } from '../auth';
 import { ApolloError } from 'apollo-server-core';
+import { User } from 'src/database/entities';
 
 
 @Resolver( 'Auth' )
@@ -21,29 +22,37 @@ export class AuthResolver {
     ): Promise<LoginResponse> {
         const { req, res } = context;
         req.body = {
-            ...req.body, accessToken: accessToken
+            ...req.body, access_token: accessToken
         };
-        let user;
 
-        Logger.log( 'sadasdas' );
-        process.stdout.write( 'asdsad' );
-        console.log( 'asdssss' );
+        // let token;
 
-        const response = await authenticateAAD( req, res );
-        const { data, info } = response;
-        Logger.log( 'sadasdas' );
-        console.log( 'asdssss' );
-        if ( data ) {
-            console.log( data );
-        }
+        try {
+            const response = await authenticateAAD( req, res );
 
-        if ( info ) {
-            console.log( info );
+            const { token } = response;
+            console.log( response );
+            const { preferred_username } = token;
+
+            let user;
+            user = await getRepository( User ).createQueryBuilder( "users" )
+                .innerJoinAndSelect( "users.account", "account" ).where( `account.email=:email AND is_lock=false`, { email: preferred_username } ).getOne()
+            if ( user ) {
+                const tokenData = await tradeToken( user );
+                console.log( tokenData );
+                return tokenData;
+            }
+            // return 
+        } catch ( error ) {
+            if ( error.info ) {
+                throw new ApolloError( 'invalid token' );
+            }
+            Logger.log( error );
             throw new ApolloError( 'Something went wrong' )
 
         }
-
-        return await tradeToken( user );
+        return null;
+        // return await tradeToken( token );
     }
 }
 

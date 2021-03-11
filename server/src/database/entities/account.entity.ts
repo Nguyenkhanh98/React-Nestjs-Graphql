@@ -18,7 +18,7 @@ export class Account {
     id: number
 
     @Expose()
-    @Column()
+    @Column( { unique: true, nullable: false } )
     email: string
 
     @Expose()

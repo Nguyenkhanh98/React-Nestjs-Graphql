@@ -4,6 +4,7 @@ import { sign, verify } from 'jsonwebtoken';
 import { LoginResponse } from '../../generator/graphql.schema'
 
 import { ISSUER, ACCESS_TOKEN_SECRET, AUDIENCE } from '../../config/environments';
+import { Console } from 'console';
 
 type TokenType =
     | 'accessToken'
@@ -15,25 +16,25 @@ const common = {
     accessToken: {
         privateKey: ACCESS_TOKEN_SECRET,
         signOptions: {
-            expiresIn: '30d' // 15m
+            expiresIn: 60 * 60 * 24 * 2 // 2d
         }
     },
     refreshToken: {
         privateKey: 'REFRESH_TOKEN_SECRET',
         signOptions: {
-            expiresIn: '7d' // 7d
+            expiresIn: 60 * 60 * 24 * 2 // 7d
         }
     },
     emailToken: {
         privateKey: 'EMAIL_TOKEN_SECRET',
         signOptions: {
-            expiresIn: '1d' // 1d
+            expiresIn: 60 * 60 * 24 * 2 // 1d
         }
     },
     resetPassToken: {
         privateKey: 'RESETPASS_TOKEN_SECRET',
         signOptions: {
-            expiresIn: '1d' // 1d
+            expiresIn: 60 * 60 * 24 * 2 // 1d
         }
     }
 }
@@ -41,8 +42,8 @@ const common = {
 export const generateToken = async (
     user: User,
     type: TokenType
-): Promise<string> => {
-    return await sign(
+): Promise<LoginResponse> => {
+    const token = await sign(
         {
             id: user.id
         },
@@ -55,17 +56,19 @@ export const generateToken = async (
             expiresIn: common[type].signOptions.expiresIn
         }
     )
+
+    return { accessToken: token, expiresIn: common[type].signOptions.expiresIn }
 }
 
 
 export const tradeToken = async ( user: User ): Promise<LoginResponse> => {
-    if ( !user.isVerified ) {
-        throw new ForbiddenError( 'Please verify your email.' )
-    }
+    // if ( !user.isVerified ) {
+    //     throw new ForbiddenError( 'Please verify your email.' )
+    // }
 
-    if ( !user.isActive ) {
-        throw new ForbiddenError( "User already doesn't exist." )
-    }
+    // if ( !user.isActive ) {
+    //     throw new ForbiddenError( "User already doesn't exist." )
+    // }
 
     if ( user.isLocked ) {
         throw new ForbiddenError( 'Your email has been locked.' )
@@ -73,6 +76,5 @@ export const tradeToken = async ( user: User ): Promise<LoginResponse> => {
 
     const accessToken = await generateToken( user, 'accessToken' )
     const refreshToken = await generateToken( user, 'refreshToken' )
-
-    return { accessToken }
+    return accessToken;
 }

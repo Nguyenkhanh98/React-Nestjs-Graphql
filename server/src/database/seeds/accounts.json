@@ -4,39 +4,41 @@
         "email": "khanhnguyenhuu@vietjetair.com",
         "name": "Khanh Nguyen",
         "token": "",
-        "provider": "Microsoft",
-        "user_id": 1
+        "provider": "Microsoft"
     },
     {
         "id": 2,
-        "email": "khanhnguyenhuu@vietjetair.com",
+        "email": "khanhnguyenhuu2@vietjetair.com",
         "name": "Khanh Nguyen",
         "token": "",
-        "provider": "Microsoft",
-        "user_id": 2
+        "provider": "Microsoft"
     },
     {
         "id": 3,
-        "email": "khanhnguyenhuu@vietjetair.com",
+        "email": "khanhnguyenhuu3@vietjetair.com",
         "name": "Khanh Nguyen",
         "token": "",
-        "provider": "Microsoft",
-        "user_id": 3
+        "provider": "Microsoft"
     },
     {
         "id": 4,
-        "email": "khanhnguyenhuu@vietjetair.com",
+        "email": "khanhnguyenhuu4@vietjetair.com",
         "name": "Khanh Nguyen",
         "token": "",
-        "provider": "Microsoft",
-        "user_id": 4
+        "provider": "Microsoft"
     },
     {
         "id": 5,
-        "email": "khanhnguyenhuu@vietjetair.com",
+        "email": "khanhnguyenhuu5@vietjetair.com",
         "name": "Khanh Nguyen",
         "token": "",
-        "provider": "Microsoft",
-        "user_id": 5
+        "provider": "Microsoft"
+    },
+    {
+        "id": 6,
+        "email": "khanhnguyenhuu6@vietjetair.com",
+        "name": "Khanh Nguyen",
+        "token": "",
+        "provider": "Microsoft"
     }
 ]

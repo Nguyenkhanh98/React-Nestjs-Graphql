@@ -4,7 +4,6 @@ import { Logger } from '@nestjs/common';
 import { AppModule } from './app.module';
 import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify';
 import { getConnection } from 'typeorm'
-import * as passport from 'passport';
 import { MyLogger } from './config/logger';
 import helmet from 'helmet';
 import compression from 'compression';
@@ -12,7 +11,6 @@ import { express as voyagerMiddleware } from 'graphql-voyager/middleware'
 import rateLimit from 'express-rate-limit';
 import { LoggerMiddleware } from './common';
 import { VOYAGER, NODE_ENV, END_POINT, RATE_LIMIT_MAX } from './config/environments';
-import 
 
 config();
 
@@ -34,9 +32,6 @@ async function bootstrap() {
   app.use( helmet( { contentSecurityPolicy: ( process.env.NODE_ENV === 'production' ) ? undefined : false } ) );
 
   app.use( LoggerMiddleware );
-
-  app.use( passport.initialize() );
-  app.use( passport.session() );
 
   require
   app.use( rateLimit( {

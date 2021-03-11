@@ -6,20 +6,21 @@ import { GraphService } from '../../services';
 
 import { UserConstant } from './constants';
 
-const { AAD_LOGIN_PENDING, AAD_LOGIN_CLICK, AAD_LOGIN_FAILED, AAD_LOGIN_SUCCESS } = UserConstant;
+const { AAD_LOGIN_PENDING, AAD_LOGIN_CLICK, AAD_LOGIN_FAILED, AAD_LOGIN_SUCCESS,
+    AAD_LOGOUT_CLICK, AAD_LOGOUT_SUCCESS
+} = UserConstant;
 
 export const loginAction = createAction(AAD_LOGIN_CLICK);
 
 export const loginPending = createAction(AAD_LOGIN_PENDING);
 
-export const loginSuccess = createAction(AAD_LOGIN_SUCCESS, (user) => {
-    return {
-        payload: { user }
-    };
-});
+export const loginSuccess = createAction(AAD_LOGIN_SUCCESS);
 
 export const loginFailed = createAction(AAD_LOGIN_FAILED, (error) => {
     return {
         payload: { error }
     };
 });
+
+export const logOutAction = createAction(AAD_LOGOUT_CLICK);
+export const logOutSuccess = createAction(AAD_LOGOUT_SUCCESS);

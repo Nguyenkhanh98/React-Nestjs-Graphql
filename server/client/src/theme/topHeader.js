@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import $ from 'jquery';
+import { toastr } from 'react-redux-toastr';
 import PropTypes from 'prop-types';
 import { smoothlyMenu } from './helpers/helpers';
 // import a4 from '../assets/img/a4.jpg';
@@ -166,9 +167,8 @@ class TopHeader extends Component {
     );
   }
 
-  logout = () => {
-    auth.logout();
-    this.props.history.push('/');
+  logout = async () => {
+    await auth.logout();
   };
 
   toggleNavigation(e) {
@@ -182,5 +182,5 @@ TopHeader.propTypes = {
   history: PropTypes.object.isRequired,
 };
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({ }, dispatch);
+const mapDispatchToProps = (dispatch) => bindActionCreators({}, dispatch);
 export default withRouter(connect(null, mapDispatchToProps)(TopHeader));

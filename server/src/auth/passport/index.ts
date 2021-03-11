@@ -1,11 +1,10 @@
-import * as passport from 'passport';
+import passport from 'passport';
 import { BearerStrategy } from 'passport-azure-ad';
 
-import { CLIENT_ID, AAD_IDENTITY } from '../../config/environments';
+import { CLIENT_ID, AAD_IDENTITY, ISSUER, AUDIENCE } from '../../config/environments';
 
 interface OAuthResponse {
-    readonly data: any
-    readonly info: any
+    readonly token: any
 }
 
 var options = {
@@ -13,30 +12,33 @@ var options = {
     clientID: CLIENT_ID,
     validateIssuer: true,
     passReqToCallback: false,
+    issuer: ISSUER,
+    loggingLevel: 'info',
+    audience: AUDIENCE
 };
 
 const AADTokenStrategyCallback = async (
-    accessToken,
-    refreshToken,
-    profile,
+    token,
     done
 ) => done( null, {
-    accessToken,
-    refreshToken,
-    profile
-} )
-
-console.log( passport.use );
+    token
+} );
 passport.use( new BearerStrategy( options, AADTokenStrategyCallback ) );
 
 export const authenticateAAD = ( req, res ): Promise<OAuthResponse> => {
     return new Promise( ( resolve, reject ) => {
         passport.authenticate( 'oauth-bearer', { session: false },
             ( err, data, info ) => {
+
                 if ( err ) {
                     reject( err );
                 }
-                resolve( info );
+
+                if ( info ) {
+                    reject( { info } );
+                }
+
+                resolve( data );
             } )( req, res )
     } );
 }

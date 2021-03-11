@@ -35,8 +35,8 @@ export default class AppRoutes extends Component {
         <div id="page-wrapper" className="gray-bg">
           <TopHeader />
           <Switch>
-            <Route path="/dashboard" exact component={WaitingComponent(Dashboard)} />
-            <Route path="/permissions" exact component={WaitingComponent(Permissions)} />
+            {/* <Route path="/dashboard" exact component={WaitingComponent(Dashboard)} />
+            <Route path="/permissions" exact component={WaitingComponent(Permissions)} /> */}
             <Route component={NotFound} />
           </Switch>
           <Footer />

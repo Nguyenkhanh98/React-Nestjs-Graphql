@@ -11,9 +11,8 @@ input UpdateUserInput {
 }
 
 type User {
-    id: ID
     uuid: String
-    accounts: [Account]
+    account: Account
     firstName: String
     lastName: String
     avatar: String
@@ -31,6 +30,7 @@ type User {
 type Query {
     users(offset: Int, limit: Int): [User]
     user(id: ID) : User
+    me(): User
 }
 
 type Mutation {

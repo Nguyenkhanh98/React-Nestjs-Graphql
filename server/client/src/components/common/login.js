@@ -2,7 +2,7 @@ import $ from 'jquery';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { get, isEmpty } from 'lodash';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import EnhancedSwitch from 'react-icheck/lib/EnhancedSwitch';
 import { toastr } from 'react-redux-toastr';
 
@@ -15,6 +15,7 @@ import backgroundImage from '../../assests/images/background.jpg';
 import { connect } from 'react-redux';
 import { bindActionCreators } from '@reduxjs/toolkit';
 import { UserAction } from '../../redux/actions';
+import { isNonNullChain } from 'typescript';
 
 EnhancedSwitch.propTypes = {
   ...EnhancedSwitch.propTypes,
@@ -47,18 +48,27 @@ class Login extends Component {
   }
 
   static getDerivedStateFromProps(nextProps) {
-    if (!isEmpty(get(nextProps, 'user.auth')) && auth.isAuth()) {
-      nextProps.history.push('/app/home');
+    if (!isEmpty(get(nextProps, 'isAuth')) && auth.isAuth()) {
+      nextProps.history.push('/');
     }
     return null;
   }
 
+
   render() {
+    let redirect = null;
+    const { isAuth } = auth;
+
+    if (isAuth()) {
+      redirect = <Redirect to='/' />;
+    }
+
     if (this.props.loading) { return <Loading />; }
     if (this.props.error) { toastr.error('Get Hired!', this.props.error); }
 
     return (
       <div style={customStyle.background}>
+        {redirect}
         <div className="middle-box text-center loginscreen animated fadeInDown" style={{ paddingBottom: '40px' }}>
           <button
             type="submit"
@@ -75,7 +85,7 @@ class Login extends Component {
   }
 
   login = async () => {
-    await this.props.loginAction();
+    this.props.loginAction();
   };
 }
 
@@ -85,12 +95,17 @@ Login.propTypes = {
   // error: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = state => ({
-  test: 'state.test'
-});
 
 const mapDispatchToProps = (dispatch) => {
   return { dispatch, ...bindActionCreators(UserAction, dispatch) };
 };
+
+const mapStateToProps = (state) => {
+  const { user } = state;
+  console.log(user);
+  return {
+    isAuth: user.isAuth
+  }
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
