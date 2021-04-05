@@ -40,7 +40,7 @@ export class VwGlPaymentResolver {
         }
 
         try {
-            const result = await Promise.all( [vwGlPaymentPromise, vwGlPaymentBasePromise()] )Y
+            const result = await Promise.all( [vwGlPaymentPromise, vwGlPaymentBasePromise()] )
 
             const mergeVwGlPayment = result[1].map( eachElement => {
                 const vwUpdatedIndex = result[0].findIndex( x => x.glPaymentsReceiptNmbr === eachElement.lngGlPaymentsReceiptNmbr );
