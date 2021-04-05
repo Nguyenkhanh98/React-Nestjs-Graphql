@@ -1,0 +1,11 @@
+scalar JSON
+scalar JSONObject
+scalar Date
+
+schema {
+    query: Query
+    mutation: Mutation
+}
+
+#auth
+directive @isAuthenticated on FIELD  | FIELD_DEFINITION

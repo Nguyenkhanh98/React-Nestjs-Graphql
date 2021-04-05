@@ -1,0 +1,45 @@
+type VwGlPayment {
+    reservationNumber: Float
+    reservationLocator: String
+    paymentTakenBy: String
+    glPaymentsAmount: Float
+    glPaymentDate: Date
+    glPaymentsReceiptNmbr: Float
+    glPaymentMethodIdent: String
+    adjustmentMethod: String
+    description: String
+    updatedAt: String
+}
+
+input VwGlPaymentRequest  {
+    pageNumber: Int,
+    pageSize: Int,
+    pnr: Int,
+    strPaymentTakenBy: String!,
+    startDate: Date!,
+    endDate: Date,
+    groupBy: String,
+}
+
+
+input UpdateVwGlPayment {
+    reservationNumber: Float
+    reservationLocator: String
+    paymentTakenBy: String
+    glPaymentsAmount: Float
+    glPaymentDate: Date
+    glPaymentsReceiptNmbr: Float
+    glPaymentMethodIdent: String
+    adjustmentMethod: String
+    description: String
+}
+
+type Query {
+    vwGlPayments(query: VwGlPaymentRequest!): [VwGlPayment] @isAuthenticated
+}
+ 
+type Mutation {
+    updateVwGlPayment(
+        data: UpdateVwGlPayment!
+    ) : Boolean
+}
