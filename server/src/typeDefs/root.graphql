@@ -1,8 +1,0 @@
-scalar JSON
-scalar JSONObject
-scalar Date
-
-schema {
-    query: Query
-    mutation: Mutation
-}

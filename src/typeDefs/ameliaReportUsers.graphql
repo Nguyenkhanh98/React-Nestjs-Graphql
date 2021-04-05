@@ -1,0 +1,41 @@
+type AmeliaReportUser {
+    lngUserIdNmbr: Float
+    strUserLogonName: String
+    strUserName: String
+    lngUserBaseIdNmbr: Float
+    strUserEmployeeFlag: String
+    strUserStatusFlag: String
+    strUserLoggedInFlag: String
+    strDeletedFlag: String
+    strUserBarcode: String
+    strUserPhone: String
+    strUserEmail: String
+    strUserCity: String
+    lngProvinceIdNmbr: Float
+    strUserPostalCode: String
+    lngCountryIdNmbr: Float
+    strUserNotes: String
+    lngResAgencyIdNmbr: Float
+    strNtloginName: String
+    strResZuluLocalSwitch: String
+    lngResClosestAirportTimezone: Float
+    tspTimestamp: Date
+    strDeletableFlag: String
+    dtmCreationDate: Date
+    lngCreationUserIdNmbr: Float
+    dtmLastModDate: Date
+    lngLastModUserIdNmbr: Float
+    dtmPasswordLastModDate: Date
+    lngConsecutiveFailedLogins: Float
+    lngAirlineCodesIdNmbr: Float
+}
+
+input AmeliaReportUserRequest  {
+    pageNumber: Int,
+    pageSize: Int,
+    userName: String,
+}
+
+type Query {
+    amelia_report_users(queryInput: AmeliaReportUserRequest): [AmeliaReportUser] @isAuthenticated
+}

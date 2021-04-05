@@ -1,0 +1,47 @@
+type VwGlPaymentBase {
+    lngReservationNmbr: Float
+    dtmGlPaymentsDate: Date
+    dtmGlPaymentsDateLocal: Date
+    lngGlPaymentsReceiptNmbr: Float
+    strGlPaymentsPayer: String
+    strGlPaymentMethodIdent: String
+    strGlAuthorizationNmbr: String
+    lngResPaxGroupIdNmbr: Float
+    mnyGlPaymentsAmount: Float
+    mnyGlCurrencyPaymentsAmount: Float
+    strCurrencyIdent: String
+    mnyExchangeRate: Float
+    strPaymentTakenBy: String
+    strAccountNmbr: String
+    lngGlPaymentMethodIdNmbr: String
+    strGlPaymentsNotes: String
+    strGlCardNmbr: String
+    lngCreditCardVerifyIdNmbr: Float
+    strPaymentTakenByLogonName: String
+    dtmCreationDate: Date
+    strPaymentRefundFlag: String
+    lngGlPaymentsIdNmbr: Float
+    strResLocator: String
+}
+
+# type VwGlPaymentBaseResponse {
+#     pageSize: Int
+#     items : [VwGlPaymentBase]
+#     totalPage: Int
+#     currentPage: Int
+#     totalCount: Int
+#     isAllDataLoaded: Boolean
+# }
+
+input VwGlPaymentBaseRequest  {
+    pageNumber: Int,
+    pageSize: Int,
+    pnr: Int,
+    strPaymentTakenBy: String!,
+    startDate: Date!,
+    endDate: Date
+}
+
+type Query {
+    vwGlPayment_base(query: VwGlPaymentBaseRequest!): [VwGlPaymentBase] @isAuthenticated
+}
