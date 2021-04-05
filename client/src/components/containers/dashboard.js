@@ -175,7 +175,10 @@ const Dashboard = () => {
     const columnKey = column.key;
     const rowChanged = rows[rowIndex];
     const { glPaymentMethodIdent } = rowChanged;
+    console.log(glPaymentMethodIdent);
+
     if (allowMethodEdit.includes(glPaymentMethodIdent)) {
+      console.log(glPaymentMethodIdent);
       setListVwGlPayment(rows);
       const { updatedAt, __typename, ...rowData } = rowChanged;
       updateVwGlPayment({ variables: { data: rowData } });
@@ -224,7 +227,6 @@ const Dashboard = () => {
       //   return undefined;
       // }
     }
-    console.log(filters);
     getVwGlPayments({ variables: { vwGlPaymentRequest: { ...filters, groupBy } } });
   }, [filters]);
 
@@ -463,6 +465,7 @@ const Dashboard = () => {
 
                 rowKeyGetter={rowKeyGetter}
                 rowRenderer={RowRenderer}
+                onRowsChange={onRowsChange}
                 onScroll={handleScroll}
                 style={customStyle.grid}
 

@@ -31,26 +31,22 @@ export class VwGlPaymentResolver {
                 OR vw_gl_payment.reservationLocator = :pnr)` : ''}
                             
                             `, { paymentTakenBy: strPaymentTakenBy, pnr: pnr } )
+            .skip( skip )
             .take( limit )
-            .skip( skip ).getMany();
+            .getMany();
 
-        const vwGlPaymentBasePromise: Promise<VwGlPaymentBase[]> = new Promise( async ( resolve, reject ) => {
-            try {
-                const vwGlPaymentBases = await this.vwGlPaymentService.findAll( vwGlPaymentQuery );
-                resolve( vwGlPaymentBases );
-            } catch ( error ) {
-                reject( error );
-            }
-        } )
+        const vwGlPaymentBasePromise = async () => {
+            return await this.vwGlPaymentService.findAll( vwGlPaymentQuery );
+        }
 
         try {
-            const result = await Promise.all( [vwGlPaymentPromise, vwGlPaymentBasePromise] )
+            const result = await Promise.all( [vwGlPaymentPromise, vwGlPaymentBasePromise()] )Y
 
             const mergeVwGlPayment = result[1].map( eachElement => {
                 const vwUpdatedIndex = result[0].findIndex( x => x.glPaymentsReceiptNmbr === eachElement.lngGlPaymentsReceiptNmbr );
                 if ( vwUpdatedIndex > -1 ) {
                     const vwUpdated = { ...result[0][vwUpdatedIndex] };
-                    result[0].splice( vwUpdatedIndex );
+                    result[0].splice( vwUpdatedIndex, 1 );
                     return vwUpdated;
                 }
                 return new VwGlPayment( {
@@ -85,7 +81,7 @@ export class VwGlPaymentResolver {
                 .values( updateData )
                 .orUpdate( {
                     conflict_target: ['gl_payments_receipt_nmbr'],
-                    overwrite: ['adjustment_method', 'description']
+                    overwrite: ['adjustment_method', 'description', 'updated_at']
                 } )
                 .setParameters( { adjustment_method: data.adjustmentMethod, description: data.description } )
                 .execute();
