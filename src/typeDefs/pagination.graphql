@@ -1,0 +1,5 @@
+type PageData {
+    count: Int
+    limit: Int
+    offset: Int
+}
